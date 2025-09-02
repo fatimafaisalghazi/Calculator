@@ -230,7 +230,6 @@
         app:layout_constraintStart_toStartOf="@id/no_nine"
         app:layout_constraintTop_toBottomOf="@id/no_nine" />
     /////
-
     <Button
         android:id="@+id/minus"
         style="@style/operator_btn_background"
@@ -287,10 +286,70 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickNumber"
-        android:text="0"
+        android:text="1"
         app:layout_constraintEnd_toEndOf="@+id/no_six"
         app:layout_constraintStart_toStartOf="@id/no_six"
         app:layout_constraintTop_toBottomOf="@id/no_six" />
+
+    <Button
+        android:id="@+id/equal"
+        style="@style/operator_btn_background"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginVertical="4dp"
+        android:background="@drawable/operation_background"
+        android:gravity="center"
+        android:text="="
+
+
+        app:layout_constraintEnd_toEndOf="@+id/minus"
+        app:layout_constraintStart_toStartOf="@id/minus"
+        app:layout_constraintTop_toBottomOf="@id/minus" />
+
+    <Button
+        android:id="@+id/dot"
+        style="@style/btn_background"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginVertical="4dp"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:onClick="onClickNumber"
+        android:text="."
+        app:layout_constraintEnd_toEndOf="@id/no_three"
+        app:layout_constraintStart_toStartOf="@id/no_three"
+        app:layout_constraintTop_toBottomOf="@id/no_three" />
+
+    <Button
+        android:id="@+id/no_zero"
+        style="@style/btn_background"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginVertical="4dp"
+        android:background="@drawable/button_background"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="onClickNumber"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@id/no_tow"
+        app:layout_constraintStart_toStartOf="@id/no_tow"
+        app:layout_constraintTop_toBottomOf="@id/no_tow" />
+
+    <Button
+        android:id="@+id/minus_plus"
+        style="@style/btn_background"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginVertical="4dp"
+        android:background="@drawable/button_background"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="onClickNumber"
+        android:text="±"
+        app:layout_constraintEnd_toEndOf="@+id/no_one"
+        app:layout_constraintStart_toStartOf="@id/no_one"
+        app:layout_constraintTop_toBottomOf="@id/no_one" />
+////
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
