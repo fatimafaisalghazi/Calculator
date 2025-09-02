@@ -21,16 +21,30 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        addCallBack()
+    }
+
+    val lastNumber: Double = 0.0
+
+    private fun addCallBack() {
+        binding.clear.setOnClickListener {
+            onClearInput()
+        }
     }
 
     fun onClickNumber(v: View) {
-        var newDigit = (v as Button).text.toString()
+        val newDigit = (v as Button).text.toString()
         val oldDigit = binding.operation.text.toString()
-        val newOperation =  when {
+
+        val newOperation = when {
             oldDigit == "0" && newDigit == "0" -> oldDigit
             oldDigit == "0" -> newDigit
             else -> oldDigit + newDigit
         }
         binding.operation.text = newOperation
+    }
+
+    fun onClearInput() {
+        binding.operation.text = ""
     }
 }
