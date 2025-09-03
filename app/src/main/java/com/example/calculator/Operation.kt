@@ -4,6 +4,6 @@ enum class Operation {
     Minus,
     Plus,
     Times,
-    Remainder,
+    Reminder,
     Division
 }
