@@ -45,7 +45,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_digit"
-        app:layout_constraintVertical_bias="0.661" />
+        app:layout_constraintVertical_bias="0.825" />
 
     <Button
         android:id="@+id/devide"
@@ -251,7 +251,6 @@
         style="@style/operator_btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
         android:background="@drawable/operation_background"
         android:clickable="true"
         android:gravity="center"
@@ -268,7 +267,6 @@
         style="@style/btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
@@ -285,7 +283,6 @@
         style="@style/btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
@@ -302,7 +299,6 @@
         style="@style/btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
@@ -333,30 +329,30 @@
         style="@style/btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/button_background"
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="."
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/equal"
         app:layout_constraintEnd_toStartOf="@id/equal"
         app:layout_constraintStart_toEndOf="@id/no_zero"
         app:layout_constraintTop_toBottomOf="@id/no_three"
-        app:layout_constraintVertical_bias="0.959" />
+       />
 
     <Button
         android:id="@+id/no_zero"
         style="@style/btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="0"
         app:layout_constraintStart_toEndOf="@id/minus_plus"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/equal"
         app:layout_constraintEnd_toStartOf="@id/dot"
         app:layout_constraintTop_toBottomOf="@id/no_tow" />
 
@@ -365,13 +361,13 @@
         style="@style/btn_background"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_marginVertical="4dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="±"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/equal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/no_zero"
         app:layout_constraintTop_toBottomOf="@id/no_one" />
