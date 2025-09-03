@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun displayOperation(operation: Operation) {
         currentOperation = operation
 
-        val symbol = when(operation) {
+        val symbol = when (operation) {
             Operation.Plus -> "+"
             Operation.Minus -> "-"
             Operation.Times -> "×"
@@ -70,9 +70,9 @@ class MainActivity : AppCompatActivity() {
         binding.inputDigit.text = binding.inputDigit.text.toString() + symbol
     }
 
-    private fun doCurrentOperation() : Double{
-        val secondNumber =  binding.inputDigit.text.toString().toDouble()
-       return when(currentOperation){
+    private fun doCurrentOperation(): Double {
+        val secondNumber = binding.inputDigit.text.toString().toDouble()
+        return when (currentOperation) {
             Operation.Minus -> lastNumber - secondNumber
             Operation.Plus -> lastNumber + secondNumber
             Operation.Times -> lastNumber * secondNumber
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onClickNumber(v: View ) {
+    fun onClickNumber(v: View) {
         val newDigit = (v as Button).text.toString()
         val oldDigit = binding.inputDigit.text.toString()
 

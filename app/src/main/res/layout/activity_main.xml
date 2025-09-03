@@ -75,8 +75,8 @@
         android:gravity="center"
         android:text="%"
         app:layout_constraintBottom_toTopOf="@id/no_nine"
-        app:layout_constraintEnd_toStartOf="@id/devide"
-        app:layout_constraintStart_toEndOf="@+id/back" />
+        app:layout_constraintEnd_toEndOf="@+id/no_nine"
+        app:layout_constraintStart_toStartOf="@+id/no_nine" />
 
     <Button
         android:id="@+id/back"
@@ -88,10 +88,10 @@
         android:clickable="true"
         android:gravity="center"
         android:text="->"
-        app:layout_constraintEnd_toStartOf="@+id/reminder"
-        app:layout_constraintStart_toEndOf="@+id/clear"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintTop_toTopOf="@+id/clear" />
+        app:layout_constraintBottom_toTopOf="@id/no_eight"
+        app:layout_constraintEnd_toEndOf="@+id/no_eight"
+        app:layout_constraintStart_toStartOf="@+id/no_eight"
+        />
 
     <Button
         android:id="@+id/clear"
@@ -104,8 +104,11 @@
         android:gravity="center"
         android:padding="4dp"
         android:text="AC"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintBottom_toTopOf="@id/no_seven"
+        app:layout_constraintEnd_toEndOf="@+id/no_seven"
+        app:layout_constraintStart_toStartOf="@+id/no_seven"
+
         tools:layout_editor_absoluteY="211dp" />
 
     <Button
@@ -134,11 +137,9 @@
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="9"
-        app:layout_constraintEnd_toEndOf="@+id/reminder"
-        app:layout_constraintStart_toStartOf="@+id/reminder"
-        app:layout_constraintTop_toBottomOf="@+id/clear"
-        app:layout_constraintTop_toTopOf="@+id/no_seven"
-        tools:ignore="OnClick" />
+        app:layout_constraintEnd_toEndOf="@+id/no_four"
+        app:layout_constraintStart_toStartOf="@+id/no_four"
+        app:layout_constraintTop_toBottomOf="@id/reminder" />
 
     <Button
         android:id="@+id/no_eight"
@@ -151,9 +152,10 @@
         android:gravity="center"
         android:text="8"
         android:onClick="onClickNumber"
-        app:layout_constraintEnd_toEndOf="@+id/back"
-        app:layout_constraintStart_toStartOf="@+id/back"
-        app:layout_constraintTop_toTopOf="@+id/no_seven" />
+        app:layout_constraintEnd_toEndOf="@+id/no_five"
+        app:layout_constraintStart_toStartOf="@+id/no_five"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        />
 
     <Button
         android:id="@+id/no_seven"
@@ -166,9 +168,10 @@
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="7"
-        app:layout_constraintEnd_toEndOf="@+id/clear"
-        app:layout_constraintStart_toStartOf="@+id/clear"
-        app:layout_constraintTop_toBottomOf="@+id/clear" />
+        app:layout_constraintEnd_toEndOf="@+id/no_six"
+        app:layout_constraintStart_toStartOf="@+id/no_six"
+        app:layout_constraintTop_toBottomOf="@id/clear"
+        />
 
     <Button
         android:id="@+id/plus"
@@ -199,9 +202,11 @@
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="6"
-        app:layout_constraintEnd_toEndOf="@+id/no_seven"
-        app:layout_constraintStart_toStartOf="@id/no_seven"
-        app:layout_constraintTop_toBottomOf="@id/no_seven" />
+        app:layout_constraintBottom_toTopOf="@id/no_one"
+        app:layout_constraintEnd_toEndOf="@+id/no_one"
+        app:layout_constraintStart_toStartOf="@id/no_one"
+        app:layout_constraintTop_toBottomOf="@id/no_seven"
+        />
 
     <Button
         android:id="@+id/no_five"
@@ -215,9 +220,14 @@
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="5"
-        app:layout_constraintEnd_toEndOf="@+id/no_eight"
-        app:layout_constraintStart_toStartOf="@id/no_eight"
-        app:layout_constraintTop_toBottomOf="@id/no_eight" />
+
+        app:layout_constraintBottom_toTopOf="@id/no_tow"
+        app:layout_constraintEnd_toEndOf="@+id/no_tow"
+        app:layout_constraintStart_toStartOf="@id/no_tow"
+        app:layout_constraintTop_toBottomOf="@id/no_eight"
+        />
+
+    /////
 
     <Button
         android:id="@+id/no_four"
@@ -225,17 +235,16 @@
         android:layout_width="76dp"
         android:layout_height="76dp"
         android:layout_marginVertical="4dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/button_background"
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="4"
 
-        app:layout_constraintEnd_toEndOf="@+id/no_nine"
-        app:layout_constraintStart_toStartOf="@id/no_nine"
-        app:layout_constraintTop_toBottomOf="@id/no_nine" />
-    /////
+        app:layout_constraintBottom_toTopOf="@id/no_three"
+        app:layout_constraintEnd_toEndOf="@+id/no_three"
+        app:layout_constraintStart_toStartOf="@+id/no_three"
+        app:layout_constraintTop_toBottomOf="@+id/no_nine" />
 
     <Button
         android:id="@+id/minus"
@@ -267,10 +276,9 @@
         android:text="3"
 
         app:layout_constraintBottom_toBottomOf="@id/dot"
-        app:layout_constraintEnd_toEndOf="@+id/no_four"
-        app:layout_constraintStart_toStartOf="@id/no_four"
-        app:layout_constraintTop_toBottomOf="@id/no_four"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/dot"
+        app:layout_constraintStart_toStartOf="@+id/dot"
+        app:layout_constraintTop_toBottomOf="@+id/no_four" />
 
     <Button
         android:id="@+id/no_tow"
@@ -283,9 +291,10 @@
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="2"
+
         app:layout_constraintBottom_toBottomOf="@id/no_zero"
-        app:layout_constraintEnd_toEndOf="@+id/no_five"
-        app:layout_constraintStart_toStartOf="@id/no_five"
+        app:layout_constraintEnd_toEndOf="@+id/no_zero"
+        app:layout_constraintStart_toStartOf="@id/no_zero"
         app:layout_constraintTop_toBottomOf="@id/no_five" />
 
     <Button
@@ -300,8 +309,8 @@
         android:onClick="onClickNumber"
         android:text="1"
         app:layout_constraintBottom_toBottomOf="@id/minus_plus"
-        app:layout_constraintEnd_toEndOf="@+id/no_six"
-        app:layout_constraintStart_toStartOf="@id/no_six"
+        app:layout_constraintEnd_toEndOf="@+id/minus_plus"
+        app:layout_constraintStart_toStartOf="@id/minus_plus"
         app:layout_constraintTop_toBottomOf="@id/no_six" />
 
     <Button
@@ -329,10 +338,11 @@
         android:gravity="center"
         android:onClick="onClickNumber"
         android:text="."
-        app:layout_constraintStart_toEndOf="@id/no_zero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/equal"
-        app:layout_constraintTop_toBottomOf="@id/no_three" />
+        app:layout_constraintStart_toEndOf="@id/no_zero"
+        app:layout_constraintTop_toBottomOf="@id/no_three"
+        app:layout_constraintVertical_bias="0.959" />
 
     <Button
         android:id="@+id/no_zero"
