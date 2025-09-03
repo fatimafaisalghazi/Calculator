@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         addCallBack()
     }
 
-    var lastNumber: Double = 0.0
     var currentOperation: Operation? = null
 
     private fun addCallBack() {
@@ -71,13 +70,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doCurrentOperation(): Double {
-        val secondNumber = binding.inputDigit.text.toString().toDouble()
+        val input = binding.inputDigit.text.toString()
+
         return when (currentOperation) {
-            Operation.Minus -> lastNumber - secondNumber
-            Operation.Plus -> lastNumber + secondNumber
-            Operation.Times -> lastNumber * secondNumber
-            Operation.Reminder -> lastNumber % secondNumber
-            Operation.Division -> lastNumber / secondNumber
+            Operation.Minus -> {
+                val  part = input.split("-")
+                val first = part[0].toDouble()  ; val second = part[1].toDouble()
+                first - second
+            }
+
+            Operation.Plus -> {
+                val part = input.split("+")
+                val first = part[0].toDouble() ; val second = part[1].toDouble()
+                first + second
+            }
+
+            Operation.Times -> {
+                val part = input.split("")
+                val first = part[0].toDouble() ; val second = part[1].toDouble()
+                first * second
+            }
+
+            Operation.Reminder -> {
+                val part = input.split("%")
+                val first = part[0].toDouble() ; val second = part[1].toDouble()
+                first % second
+            }
+
+            Operation.Division -> {
+                val  part = input.split("/")
+                val first = part[0].toDouble() ; val second = part[1].toDouble()
+                first / second
+            }
+
             null -> 0.0
         }
     }
