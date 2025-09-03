@@ -23,11 +23,16 @@ class MainActivity : AppCompatActivity() {
         addCallBack()
     }
 
-    var currentOperation: Operation? = null
+    private var currentOperation: Operation? = null
 
     private fun addCallBack() {
         binding.clear.setOnClickListener {
             onClearInput()
+        }
+
+        binding.back.setOnClickListener {
+           val oldDigit= binding.inputDigit.text.toString()
+            binding.inputDigit.text = backspaceOperation(oldDigit)
         }
 
         binding.plus.setOnClickListener {
@@ -56,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun displayOperation(operation: Operation) {
         currentOperation = operation
 
@@ -86,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             Operation.Times -> {
-                val part = input.split("")
+                val part = input.split("×")
                 val first = part[0].toDouble() ; val second = part[1].toDouble()
                 first * second
             }
@@ -98,12 +104,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             Operation.Division -> {
-                val  part = input.split("/")
+                val  part = input.split("÷")
                 val first = part[0].toDouble() ; val second = part[1].toDouble()
                 first / second
             }
-
             null -> 0.0
+        }
+    }
+
+    fun backspaceOperation(oldDigit: String): String {
+        return if (oldDigit.isNotEmpty()) {
+            val newDigit = oldDigit.dropLast(n = 1)
+            newDigit.ifEmpty { "0" }
+        } else {
+            "0"
         }
     }
 
@@ -121,6 +135,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClearInput() {
-        binding.inputDigit.text = ""
+        binding.inputDigit.text = "0"
+        binding.solution.text=""
+        currentOperation = null
     }
 }
