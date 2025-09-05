@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                 else -> result
             }
         }
-
         return result
     }
 
@@ -123,9 +122,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.inputDigit.text = if (oldDigit.isNotEmpty()) {
             newDigit.ifEmpty { ZERO }
-        } else {
-            ZERO
-        }
+        } else { ZERO }
     }
 
     fun onClickNumber(v: View) {
@@ -144,7 +141,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClearInput() {
         binding.inputDigit.text = ZERO
-        binding.previous.text =""
+        binding.previous.text = ""
     }
 
     private fun onEqualClick() {
