@@ -79,49 +79,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun doCurrentOperation(): Double {
         val input = binding.inputDigit.text.toString().trim()
+        val number = input.split(Regex("[-+×÷%]")).map { it.toDouble() }
+        val operation =input.split(Regex("[0123456789]"))
 
+        Log.d("print operation"," print $operation ====== $number")
+
+        var result = number[0]
         return when (currentOperation) {
             Operation.Minus -> {
-                val parts = input.split("-").map { it.toDouble() }
-                var result = parts[0]
-
-                for (i in 1 until parts.size) {
-                    result -= parts[i]
+                for (i in 1 until number.size) {
+                    result -= number[i]
                 }
                 result
             }
 
             Operation.Plus -> {
-                val parts = input.split("-").map { it.toDouble() }
-                var result = parts[0]
-
-                for (i in 1 until parts.size) {
-                    result += parts[i]
+                for (i in 1 until number.size) {
+                    result += number[i]
                 }
                 result
             }
 
             Operation.Times -> {
-                val parts = input.split("-").map { it.toDouble() }
-                var result = parts[0]
-                for (i in 1 until parts.size) {
-                    result *= parts[i]
+                for (i in 1 until number.size) {
+                    result *= number[i]
                 }
                 result
             }
 
             Operation.Reminder -> {
-                val part = input.split("%")
-                val first = part[0].toDouble()
-                val second = part[1].toDouble()
-                first % second
+                for (i in 1 until number.size){
+                    result = number[i] * (number[i + 1] / 100)
+                }
+                result
             }
 
             Operation.Division -> {
-                val parts = input.split("-").map { it.toDouble() }
-                var result = parts[0]
-                for (i in 1 until parts.size) {
-                    result /= parts[i]
+                for (i in 1 until number.size) {
+                    result /= number[i]
                 }
                 result
             }
@@ -129,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun backspaceOperation(oldDigit: String): String {
+    private fun backspaceOperation(oldDigit: String): String {
         return if (oldDigit.isNotEmpty()) {
             val newDigit = oldDigit.dropLast(n = 1)
             newDigit.ifEmpty { "0" }
