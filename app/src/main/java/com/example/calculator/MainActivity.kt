@@ -2,7 +2,6 @@ package com.example.calculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -152,6 +151,7 @@ class MainActivity : AppCompatActivity() {
             oldDigit == "0" && newDigit == "0" -> oldDigit
             oldDigit == "0" && newDigit == "." -> "0."
             oldDigit == "0" -> newDigit
+            oldDigit.isNotEmpty() && oldDigit.last() == '.' && newDigit == "." -> oldDigit
             else -> oldDigit + newDigit
         }
         binding.inputDigit.text = newOperation
@@ -159,7 +159,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClearInput() {
         binding.inputDigit.text = "0"
-        binding.solution.text = ""
         currentOperation = null
     }
 
