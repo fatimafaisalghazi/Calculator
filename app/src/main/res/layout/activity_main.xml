@@ -156,8 +156,8 @@
             android:gravity="center"
             android:onClick="onClickNumber"
             android:text="@string/_9"
-            app:layout_constraintEnd_toEndOf="@+id/no_four"
-            app:layout_constraintStart_toStartOf="@+id/no_four"
+            app:layout_constraintEnd_toEndOf="@+id/no_six"
+            app:layout_constraintStart_toStartOf="@+id/no_six"
             app:layout_constraintTop_toBottomOf="@id/reminder" />
 
         <Button
@@ -186,8 +186,8 @@
             android:gravity="center"
             android:onClick="onClickNumber"
             android:text="@string/_7"
-            app:layout_constraintEnd_toEndOf="@+id/no_six"
-            app:layout_constraintStart_toStartOf="@+id/no_six"
+            app:layout_constraintEnd_toEndOf="@+id/no_four"
+            app:layout_constraintStart_toStartOf="@+id/no_four"
             app:layout_constraintTop_toBottomOf="@id/clear" />
 
         <Button
@@ -207,7 +207,7 @@
             app:layout_constraintTop_toBottomOf="@id/minus" />
 
         <Button
-            android:id="@+id/no_six"
+            android:id="@+id/no_four"
             style="@style/btn_background"
             android:layout_width="76dp"
             android:layout_height="76dp"
@@ -217,7 +217,7 @@
             android:clickable="true"
             android:gravity="center"
             android:onClick="onClickNumber"
-            android:text="@string/_6"
+            android:text="@string/_4"
             app:layout_constraintBottom_toTopOf="@id/no_one"
             app:layout_constraintEnd_toEndOf="@+id/no_one"
             app:layout_constraintStart_toStartOf="@id/no_one"
@@ -242,7 +242,7 @@
 
 
         <Button
-            android:id="@+id/no_four"
+            android:id="@+id/no_six"
             style="@style/btn_background"
             android:layout_width="76dp"
             android:layout_height="76dp"
@@ -251,7 +251,7 @@
             android:clickable="true"
             android:gravity="center"
             android:onClick="onClickNumber"
-            android:text="@string/_4"
+            android:text="@string/_6"
             app:layout_constraintBottom_toTopOf="@id/no_three"
             app:layout_constraintEnd_toEndOf="@+id/no_three"
             app:layout_constraintStart_toStartOf="@+id/no_three"
@@ -284,7 +284,7 @@
             app:layout_constraintBottom_toBottomOf="@id/dot"
             app:layout_constraintEnd_toEndOf="@+id/dot"
             app:layout_constraintStart_toStartOf="@+id/dot"
-            app:layout_constraintTop_toBottomOf="@+id/no_four" />
+            app:layout_constraintTop_toBottomOf="@+id/no_six" />
 
         <Button
             android:id="@+id/no_tow"
@@ -314,7 +314,7 @@
             app:layout_constraintBottom_toBottomOf="@id/minus_plus"
             app:layout_constraintEnd_toEndOf="@+id/minus_plus"
             app:layout_constraintStart_toStartOf="@id/minus_plus"
-            app:layout_constraintTop_toBottomOf="@id/no_six" />
+            app:layout_constraintTop_toBottomOf="@id/no_four" />
 
         <Button
             android:id="@+id/equal"
