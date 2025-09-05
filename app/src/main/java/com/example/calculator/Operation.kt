@@ -1,9 +1,9 @@
 package com.example.calculator
 
 enum class Operation(val symbol: String) {
-    Plus(" + "),
-    Minus(" - "),
-    Times(" × "),
-    Division(" ÷ "),
-    Reminder(" % ")
+    Plus(symbol = " + "),
+    Minus(symbol = " - "),
+    Times(symbol = " × "),
+    Division(symbol = " ÷ "),
+    Reminder(symbol = " % ")
 }
