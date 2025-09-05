@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
     private fun displayOperation(operation: Operation) {
         val input = binding.inputDigit.text.toString().trim()
 
-
         currentOperation = operation
 
         val symbol = when (operation) {
@@ -76,8 +75,6 @@ class MainActivity : AppCompatActivity() {
         if (!input.last().isOperator()) {
             binding.inputDigit.text = input + symbol
         }
-        currentOperation = operation
-
     }
 
     private fun doCurrentOperation(): Double {
@@ -85,24 +82,32 @@ class MainActivity : AppCompatActivity() {
 
         return when (currentOperation) {
             Operation.Minus -> {
-                val part = input.split("-")
-                val first = part[0].toDouble()
-                val second = part[1].toDouble()
-                first - second
+                val parts = input.split("-").map { it.toDouble() }
+                var result = parts[0]
+
+                for (i in 1 until parts.size) {
+                    result -= parts[i]
+                }
+                result
             }
 
             Operation.Plus -> {
-                val part = input.split("+")
-                val first = part[0].toDouble()
-                val second = part[1].toDouble()
-                first + second
+                val parts = input.split("-").map { it.toDouble() }
+                var result = parts[0]
+
+                for (i in 1 until parts.size) {
+                    result += parts[i]
+                }
+                result
             }
 
             Operation.Times -> {
-                val part = input.split("×")
-                val first = part[0].toDouble()
-                val second = part[1].toDouble()
-                first * second
+                val parts = input.split("-").map { it.toDouble() }
+                var result = parts[0]
+                for (i in 1 until parts.size) {
+                    result *= parts[i]
+                }
+                result
             }
 
             Operation.Reminder -> {
@@ -113,10 +118,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             Operation.Division -> {
-                val part = input.split("÷")
-                val first = part[0].toDouble()
-                val second = part[1].toDouble()
-                first / second
+                val parts = input.split("-").map { it.toDouble() }
+                var result = parts[0]
+                for (i in 1 until parts.size) {
+                    result /= parts[i]
+                }
+                result
             }
             null -> 0.0
         }
@@ -149,5 +156,6 @@ class MainActivity : AppCompatActivity() {
         binding.solution.text = ""
         currentOperation = null
     }
+
     private fun Char.isOperator() = this in "+-×÷%"
 }
