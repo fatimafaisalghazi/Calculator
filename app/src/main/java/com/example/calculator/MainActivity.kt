@@ -20,43 +20,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addCallBack() {
-        binding.clear.setOnClickListener {
-            onClearInput()
-        }
+
+        binding.clear.setOnClickListener { onClearInput() }
 
         binding.back.setOnClickListener {
             val oldDigit = binding.inputDigit.text.toString()
             binding.inputDigit.text = backspaceOperation(oldDigit)
         }
 
-        binding.plus.setOnClickListener {
-            displayOperation(Operation.Plus)
-        }
+        binding.plus.setOnClickListener { displayOperation(Operation.Plus) }
 
-        binding.minus.setOnClickListener {
-            displayOperation(Operation.Minus)
-        }
+        binding.minus.setOnClickListener { displayOperation(Operation.Minus) }
 
-        binding.devide.setOnClickListener {
-            displayOperation(Operation.Division)
-        }
+        binding.devide.setOnClickListener { displayOperation(Operation.Division) }
 
-        binding.reminder.setOnClickListener {
-            displayOperation(Operation.Reminder)
-        }
+        binding.reminder.setOnClickListener { displayOperation(Operation.Reminder) }
 
-        binding.times.setOnClickListener {
-            displayOperation(Operation.Times)
-        }
+        binding.times.setOnClickListener { displayOperation(Operation.Times) }
+
+        binding.minusPlus.setOnClickListener { reverseSign() }
 
         binding.equal.setOnClickListener {
             try {
                 val result = doCurrentOperation()
                 binding.inputDigit.text = result.toString()
-            }catch (e: ArithmeticException){
+            } catch (e: ArithmeticException) {
                 binding.inputDigit.text = "${e.message}"
-            }catch (e: Throwable){
-                binding.inputDigit.text = "don't do that again"
+            } catch (e: Throwable) {
+                binding.inputDigit.text = ERROR_MESSAGE
             }
         }
     }
@@ -78,49 +69,55 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun reverseSign() {
+        val current = binding.inputDigit.text.toString().toDouble()
+        binding.inputDigit.text = (-current).toString()
+    }
+
     private fun doCurrentOperation(): Double {
         val input = binding.inputDigit.text.toString().trim()
-        val numbers =
-            input.replace(" ", "").split(Regex("[-+×÷%]")).map { it.toDouble() }.toMutableList()
-        val operators = Regex("[-+×÷%]").findAll(input).map { it.value }.toMutableList()
+        val numbers = input.replace(oldValue = " ", newValue = "").split(Regex(pattern = MAIN_PATTERN_OPERATOR)).map { it.toDouble() }.toMutableList()
+        val operators = Regex(pattern = MAIN_PATTERN_OPERATOR).findAll(input).map { it.value }.toMutableList()
+        var currentIndex = ZERO.toInt()
 
-        var i = 0
-        while (i < operators.size) {
-            val currentDigit = numbers[i]
-            val nextDigit = numbers[i + 1]
-            val reduceIndex = i - 1
+        while (currentIndex < operators.size) {
+            if (currentIndex >= numbers.size - 1) break
 
-            when (operators[i]) {
+            val currentDigit = numbers[currentIndex]
+            val nextDigit = numbers[currentIndex + 1]
+
+            when (operators[currentIndex].trim()) {
                 Operation.Times.symbol.trim() -> {
-                    numbers[i] = currentDigit * nextDigit
-                    numbers.removeAt(i + 1)
-                    operators.removeAt(i)
-                    reduceIndex
+                    numbers[currentIndex] = currentDigit * nextDigit
+                    numbers.removeAt(currentIndex + 1)
+                    operators.removeAt(currentIndex)
+                    continue
                 }
 
                 Operation.Division.symbol.trim() -> {
-                    if (nextDigit == 0.0) throw ArithmeticException("Error Division by zero")
-                    numbers[i] = currentDigit / nextDigit
-                    numbers.removeAt(i + 1)
-                    operators.removeAt(i)
-                    reduceIndex
+                    if (nextDigit == ZERO.toDouble()) throw ArithmeticException(DIVISION_BY_ZERO)
+                    numbers[currentIndex] = currentDigit / nextDigit
+                    numbers.removeAt(currentIndex + 1)
+                    operators.removeAt(currentIndex)
+                    continue
                 }
 
                 Operation.Reminder.symbol.trim() -> {
-                    numbers[i] = currentDigit * (nextDigit / 100)
-                    numbers.removeAt(i + 1)
-                    operators.removeAt(i)
-                    reduceIndex
+                    numbers[currentIndex] = currentDigit * (nextDigit / 100)
+                    numbers.removeAt(currentIndex + 1)
+                    operators.removeAt(currentIndex)
+                    continue
                 }
             }
-            i++
+            currentIndex++
         }
 
-        var result = numbers[0]
+        var result = numbers[ZERO.toInt()]
         for (j in operators.indices) {
+            if (j + 1 >= numbers.size) break
             val next = numbers[j + 1]
 
-            result = when (operators[j]) {
+            result = when (operators[j].trim()) {
                 Operation.Plus.symbol.trim() -> result + next
                 Operation.Minus.symbol.trim() -> result - next
                 else -> result
@@ -133,9 +130,9 @@ class MainActivity : AppCompatActivity() {
     private fun backspaceOperation(oldDigit: String): String {
         return if (oldDigit.isNotEmpty()) {
             val newDigit = oldDigit.dropLast(n = 1)
-            newDigit.ifEmpty { "0" }
+            newDigit.ifEmpty { ZERO }
         } else {
-            "0"
+            ZERO
         }
     }
 
@@ -144,18 +141,28 @@ class MainActivity : AppCompatActivity() {
         val oldDigit = binding.inputDigit.text.toString()
 
         val newOperation = when {
-            oldDigit == "0" && newDigit == "0" -> oldDigit
-            oldDigit == "0" && newDigit == "." -> "0."
-            oldDigit == "0" -> newDigit
-            oldDigit.isNotEmpty() && oldDigit.last() == '.' && newDigit == "." -> oldDigit
+            oldDigit == ZERO && newDigit == ZERO -> oldDigit
+            oldDigit == ZERO && newDigit == POINT -> ZERO_POINT
+            oldDigit == ZERO -> newDigit
+            oldDigit.isNotEmpty() && oldDigit.last().toString() == POINT && newDigit == POINT -> oldDigit
             else -> oldDigit + newDigit
         }
         binding.inputDigit.text = newOperation
     }
 
-    fun onClearInput() {
-        binding.inputDigit.text = "0"
+    private fun onClearInput() {
+        binding.inputDigit.text = ZERO
     }
 
-    private fun Char.isOperator() = this in "+-×÷%"
+    private fun Char.isOperator() = this in MAIN_OPERATOR
+
+    private companion object {
+        const val ZERO = "0"
+        const val POINT = "."
+        const val MAIN_PATTERN_OPERATOR = "[-+×÷%]"
+        const val MAIN_OPERATOR = "+-×÷%"
+        const val ERROR_MESSAGE = "don't do that again"
+        const val ZERO_POINT = "0."
+        const val DIVISION_BY_ZERO = "Error Division by zero"
+    }
 }
