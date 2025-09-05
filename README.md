@@ -8,5 +8,3 @@ Clean layout with ConstraintLayout and LinearLayout.
 UI Design: XML (ConstraintLayout + custom drawables)
 
 Error Handling: Input validation & try/catch
-
-Design Assets: Custom fonts & drawable resources
