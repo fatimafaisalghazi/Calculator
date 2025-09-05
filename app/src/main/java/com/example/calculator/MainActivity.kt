@@ -20,23 +20,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addCallBack() {
-
         binding.clear.setOnClickListener { onClearInput() }
-
         binding.back.setOnClickListener { backspaceOperation() }
-
         binding.plus.setOnClickListener { displayOperation(Operation.Plus) }
-
         binding.minus.setOnClickListener { displayOperation(Operation.Minus) }
-
         binding.devide.setOnClickListener { displayOperation(Operation.Division) }
-
         binding.reminder.setOnClickListener { displayOperation(Operation.Reminder) }
-
         binding.times.setOnClickListener { displayOperation(Operation.Times) }
-
         binding.minusPlus.setOnClickListener { reverseSign() }
-
         binding.equal.setOnClickListener { onEqualClick() }
     }
 
