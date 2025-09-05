@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.equal.setOnClickListener {
             try {
-                val oldDigit = binding.inputDigit.text.toString()
-                binding.previous.text = oldDigit
+                val previousOperation = binding.inputDigit.text.toString()
+                binding.previous.text = previousOperation
                 val result = doCurrentOperation()
                 binding.inputDigit.text = result.toString()
             } catch (e: ArithmeticException) {
