@@ -2,6 +2,7 @@ package com.example.calculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -52,8 +53,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.equal.setOnClickListener {
-            val result = doCurrentOperation()
-            binding.inputDigit.text = result.toString()
+            try {
+                val result = doCurrentOperation()
+                binding.inputDigit.text = result.toString()
+            }catch (e: ArithmeticException){
+                binding.inputDigit.text = "${e.message}"
+            }catch (e: Throwable){
+                binding.inputDigit.text = "${e.message}"
+            }
         }
     }
 
@@ -84,31 +91,31 @@ class MainActivity : AppCompatActivity() {
 
         var i = 0
         while (i < operators.size) {
-
             val currentDigit = numbers[i]
             val nextDigit = numbers[i + 1]
+            val reduceIndex = i - 1
 
             when (operators[i]) {
                 Operation.Times.symbol.trim() -> {
                     numbers[i] = currentDigit * nextDigit
                     numbers.removeAt(i + 1)
                     operators.removeAt(i)
-                    i--
+                    reduceIndex
                 }
 
                 Operation.Division.symbol.trim() -> {
-                    if (numbers[i + 1] == 0.0) throw ArithmeticException("Division by zero")
+                    if (nextDigit == 0.0) throw ArithmeticException("Error Division by zero")
                     numbers[i] = currentDigit / nextDigit
                     numbers.removeAt(i + 1)
                     operators.removeAt(i)
-                    i--
+                    reduceIndex
                 }
 
                 Operation.Reminder.symbol.trim() -> {
                     numbers[i] = currentDigit * (nextDigit / 100)
                     numbers.removeAt(i + 1)
                     operators.removeAt(i)
-                    i--
+                    reduceIndex
                 }
             }
             i++
