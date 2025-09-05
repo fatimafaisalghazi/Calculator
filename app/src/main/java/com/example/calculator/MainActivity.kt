@@ -79,50 +79,53 @@ class MainActivity : AppCompatActivity() {
 
     private fun doCurrentOperation(): Double {
         val input = binding.inputDigit.text.toString().trim()
-        val number = input.split(Regex("[-+×÷%]")).map { it.toDouble() }
-        val operation =input.split(Regex("[0123456789]"))
+        val numbers =
+            input.replace(" ", "").split(Regex("[-+×÷%]")).map { it.toDouble() }.toMutableList()
+        val operators = Regex("[-+×÷%]").findAll(input).map { it.value }.toMutableList()
 
-        Log.d("print operation"," print $operation ====== $number")
+        Log.d("print operation", "numbers=$numbers operators=$operators")
 
-        var result = number[0]
-        return when (currentOperation) {
-            Operation.Minus -> {
-                for (i in 1 until number.size) {
-                    result -= number[i]
+        var i = 0
+        while (i < operators.size) {
+            when (operators[i]) {
+                "×" -> {
+                    numbers[i] = numbers[i] * numbers[i + 1]
+                    numbers.removeAt(i + 1)
+                    operators.removeAt(i)
+                    i--
                 }
-                result
-            }
 
-            Operation.Plus -> {
-                for (i in 1 until number.size) {
-                    result += number[i]
+                "÷" -> {
+                    if (numbers[i + 1] == 0.0) throw ArithmeticException("Division by zero")
+                    numbers[i] = numbers[i] / numbers[i + 1]
+                    numbers.removeAt(i + 1)
+                    operators.removeAt(i)
+                    i--
                 }
-                result
-            }
 
-            Operation.Times -> {
-                for (i in 1 until number.size) {
-                    result *= number[i]
+                "%" -> {
+                    numbers[i] = numbers[i] * (numbers[i + 1] / 100)
+                    numbers.removeAt(i + 1)
+                    operators.removeAt(i)
+                    i--
                 }
-                result
             }
-
-            Operation.Reminder -> {
-                for (i in 1 until number.size){
-                    result = number[i] * (number[i + 1] / 100)
-                }
-                result
-            }
-
-            Operation.Division -> {
-                for (i in 1 until number.size) {
-                    result /= number[i]
-                }
-                result
-            }
-            null -> 0.0
+            i++
         }
+
+        var result = numbers[0]
+        for (j in operators.indices) {
+            val next = numbers[j + 1]
+            result = when (operators[j]) {
+                "+" -> result + next
+                "-" -> result - next
+                else -> result
+            }
+        }
+
+        return result
     }
+
 
     private fun backspaceOperation(oldDigit: String): String {
         return if (oldDigit.isNotEmpty()) {
