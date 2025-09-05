@@ -2,7 +2,6 @@ package com.example.calculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -65,11 +64,11 @@ class MainActivity : AppCompatActivity() {
         currentOperation = operation
 
         val symbol = when (operation) {
-            Operation.Plus -> " + "
-            Operation.Minus -> " - "
-            Operation.Times -> " × "
-            Operation.Division -> " ÷ "
-            Operation.Reminder -> " % "
+            Operation.Plus -> Operation.Plus.symbol
+            Operation.Minus -> Operation.Minus.symbol
+            Operation.Times -> Operation.Times.symbol
+            Operation.Division -> Operation.Division.symbol
+            Operation.Reminder -> Operation.Reminder.symbol
         }
 
         if (!input.last().isOperator()) {
@@ -83,28 +82,30 @@ class MainActivity : AppCompatActivity() {
             input.replace(" ", "").split(Regex("[-+×÷%]")).map { it.toDouble() }.toMutableList()
         val operators = Regex("[-+×÷%]").findAll(input).map { it.value }.toMutableList()
 
-        Log.d("print operation", "numbers=$numbers operators=$operators")
-
         var i = 0
         while (i < operators.size) {
+
+            val currentDigit = numbers[i]
+            val nextDigit = numbers[i + 1]
+
             when (operators[i]) {
-                "×" -> {
-                    numbers[i] = numbers[i] * numbers[i + 1]
+                Operation.Times.symbol.trim() -> {
+                    numbers[i] = currentDigit * nextDigit
                     numbers.removeAt(i + 1)
                     operators.removeAt(i)
                     i--
                 }
 
-                "÷" -> {
+                Operation.Division.symbol.trim() -> {
                     if (numbers[i + 1] == 0.0) throw ArithmeticException("Division by zero")
-                    numbers[i] = numbers[i] / numbers[i + 1]
+                    numbers[i] = currentDigit / nextDigit
                     numbers.removeAt(i + 1)
                     operators.removeAt(i)
                     i--
                 }
 
-                "%" -> {
-                    numbers[i] = numbers[i] * (numbers[i + 1] / 100)
+                Operation.Reminder.symbol.trim() -> {
+                    numbers[i] = currentDigit * (nextDigit / 100)
                     numbers.removeAt(i + 1)
                     operators.removeAt(i)
                     i--
@@ -116,16 +117,16 @@ class MainActivity : AppCompatActivity() {
         var result = numbers[0]
         for (j in operators.indices) {
             val next = numbers[j + 1]
+
             result = when (operators[j]) {
-                "+" -> result + next
-                "-" -> result - next
+                Operation.Plus.symbol.trim() -> result + next
+                Operation.Minus.symbol.trim() -> result - next
                 else -> result
             }
         }
 
         return result
     }
-
 
     private fun backspaceOperation(oldDigit: String): String {
         return if (oldDigit.isNotEmpty()) {
