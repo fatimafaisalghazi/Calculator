@@ -23,10 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.clear.setOnClickListener { onClearInput() }
 
-        binding.back.setOnClickListener {
-            val oldDigit = binding.inputDigit.text.toString()
-            binding.inputDigit.text = backspaceOperation(oldDigit)
-        }
+        binding.back.setOnClickListener { backspaceOperation() }
 
         binding.plus.setOnClickListener { displayOperation(Operation.Plus) }
 
@@ -40,18 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.minusPlus.setOnClickListener { reverseSign() }
 
-        binding.equal.setOnClickListener {
-            try {
-                val previousOperation = binding.inputDigit.text.toString()
-                binding.previous.text = previousOperation
-                val result = doCurrentOperation()
-                binding.inputDigit.text = result.toString()
-            } catch (e: ArithmeticException) {
-                binding.inputDigit.text = "${e.message}"
-            } catch (e: Throwable) {
-                binding.inputDigit.text = ERROR_MESSAGE
-            }
-        }
+        binding.equal.setOnClickListener { onEqualClick() }
     }
 
     @SuppressLint("SetTextI18n")
@@ -78,8 +64,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun doCurrentOperation(): Double {
         val input = binding.inputDigit.text.toString().trim()
-        val numbers = input.replace(oldValue = " ", newValue = "").split(Regex(pattern = MAIN_PATTERN_OPERATOR)).map { it.toDouble() }.toMutableList()
-        val operators = Regex(pattern = MAIN_PATTERN_OPERATOR).findAll(input).map { it.value }.toMutableList()
+        val numbers = input.replace(oldValue = " ", newValue = "")
+            .split(Regex(pattern = MAIN_PATTERN_OPERATOR)).map { it.toDouble() }.toMutableList()
+        val operators =
+            Regex(pattern = MAIN_PATTERN_OPERATOR).findAll(input).map { it.value }.toMutableList()
         var currentIndex = ZERO.toInt()
 
         while (currentIndex < operators.size) {
@@ -129,9 +117,11 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    private fun backspaceOperation(oldDigit: String): String {
-        return if (oldDigit.isNotEmpty()) {
-            val newDigit = oldDigit.dropLast(n = 1)
+    private fun backspaceOperation() {
+        val oldDigit = binding.inputDigit.text.toString()
+        val newDigit = oldDigit.dropLast(n = 1)
+
+        binding.inputDigit.text = if (oldDigit.isNotEmpty()) {
             newDigit.ifEmpty { ZERO }
         } else {
             ZERO
@@ -154,6 +144,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClearInput() {
         binding.inputDigit.text = ZERO
+        binding.previous.text =""
+    }
+
+    private fun onEqualClick() {
+        try {
+            val previousOperation = binding.inputDigit.text.toString()
+            binding.previous.text = previousOperation
+            val result = doCurrentOperation()
+            binding.inputDigit.text = result.toString()
+        } catch (e: ArithmeticException) {
+            binding.inputDigit.text = "${e.message}"
+        } catch (e: Throwable) {
+            binding.inputDigit.text = ERROR_MESSAGE
+        }
     }
 
     private fun Char.isOperator() = this in MAIN_OPERATOR
