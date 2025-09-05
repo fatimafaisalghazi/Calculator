@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         addCallBack()
     }
 
-    private var currentOperation: Operation? = null
-
     private fun addCallBack() {
         binding.clear.setOnClickListener {
             onClearInput()
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             }catch (e: ArithmeticException){
                 binding.inputDigit.text = "${e.message}"
             }catch (e: Throwable){
-                binding.inputDigit.text = "${e.message}"
+                binding.inputDigit.text = "don't do that again"
             }
         }
     }
@@ -66,8 +64,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun displayOperation(operation: Operation) {
         val input = binding.inputDigit.text.toString().trim()
-
-        currentOperation = operation
 
         val symbol = when (operation) {
             Operation.Plus -> Operation.Plus.symbol
@@ -159,7 +155,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClearInput() {
         binding.inputDigit.text = "0"
-        currentOperation = null
     }
 
     private fun Char.isOperator() = this in "+-×÷%"
